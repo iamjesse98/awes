@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    :root {
+        --pos-x: -100;
+        --pos-y: -100;
+        --radius-x: 350px;
+        --radius-y: 250px;
+        --mouse-x: -100;
+    }
+    body {
+        background: linear-gradient(to right, black 0%, white 100%), url(../nature-wallpapers-hd.jpg);
+        background-size: cover;
+        background-blend-mode: darken;
+    }
+    .fancy-parent {
+        background: linear-gradient(90deg, rgba(3, 3, 1, .5) calc(50% * var(--mouse-x)), rgba(255, 255, 255, 0.301) calc(100% * (var(--mouse-x))), rgba(3, 3, 1, .5));     
+        padding: 2px;
+        width: 400px;
+        transition: .4s;
+    }
+    .fancy-button {
+        border: none;
+        transition: .5s;
+        padding: 10px;
+        color: white;
+        font-size: 15px;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        background: radial-gradient(var(--radius-x) var(--radius-y) ellipse at calc(100% * var(--pos-x)) calc(100% * var(--pos-y)), rgba(255, 255, 255, .5),  rgba(0, 0, 0, .6) 30%);
+    }
+    </style>
+</head>
+<body>
+
+    <div class="fancy-parent">
+        <button class="fancy-button">Fancy Button</button>
+    </div>
+
+    <div class="fancy-parent">
+        <button class="fancy-button">Made By Jesse</button>
+    </div>
+    
+    <script>
+    const root = document.documentElement
+    const btn = document.querySelectorAll('.fancy-button')
+    const btnBCR = btn[0].getBoundingClientRect()
+    Array.from(btn).forEach(bt => bt.addEventListener('mousemove', evt => {
+        // console.log(btn === evt.target)
+        let targetBCR = evt.target.getBoundingClientRect()
+        // console.log(targetBCR)
+        let x = evt.clientX / (targetBCR.width + targetBCR.x)
+        let y = 0.5
+
+        bt.style.setProperty('--pos-x', x)
+        bt.style.setProperty('--pos-y', y)
+    }))
+    Array.from(btn).forEach(bt => bt.addEventListener('mouseout', evt => {
+        bt.style.setProperty('--pos-x', -100)
+        bt.style.setProperty('--pos-y', -100)
+    }))
+    document.addEventListener('mousemove', evt => {
+        let x = evt.clientX / (btnBCR.width + btnBCR.x)
+        root.style.setProperty('--mouse-x', x)
+    })
+    </script>
+    
+</body>
+</html>

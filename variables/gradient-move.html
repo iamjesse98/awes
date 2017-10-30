@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    :root {
+        --pos-x: 0;
+        --pos-y: 0;
+        --radius: 350px;
+    }
+    body {
+        margin: 0;
+    }
+    #mouse-track {
+        content:"";
+        display: block;
+        position:absolute;
+        height:100%;
+        right:0px;
+        top:0px;
+        width: 100%;
+        box-sizing:border-box;
+        background: radial-gradient(var(--radius) circle at calc(100% * var(--pos-x)) calc(100% * var(--pos-y)), transparent, black
+30%), url(../nature-wallpapers-hd.jpg);
+        background-size: cover;
+        background-blend-mode: multiply;
+    }
+    </style>
+</head>
+<body>
+
+    <div id="mouse-track"></div>
+
+    <script>
+        const root = document.documentElement
+        document.addEventListener('mousemove', evt => {
+            let x = evt.clientX / innerWidth
+            let y = evt.clientY / innerHeight
+
+            root.style.setProperty('--pos-x', x)
+            root.style.setProperty('--pos-y', y)
+
+            root.style.setProperty('--radius', evt.clientX + 100 + 'px')                        
+        })
+    </script>
+    
+</body>
+</html>
